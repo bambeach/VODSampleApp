@@ -10,7 +10,7 @@ class ApiNetworkClient {
 
     fun getVodList() : List<VodItem> {
         val request = Request.Builder()
-            .url("http://api.pac-12.com/v3/vod?")
+            .url("http://api.pac-12.com/v3/vod")
             .build()
 
         executeRequest(request)
@@ -53,9 +53,9 @@ class ApiNetworkClient {
 
     private fun executeRequest(request: Request) {
         client.newCall(request)
-            .enqueue(object : Callback{
+            .enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
-                    TODO("Not yet implemented")
+                    e.printStackTrace()
                 }
 
                 override fun onResponse(call: Call, response: Response) {

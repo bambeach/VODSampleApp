@@ -10,7 +10,7 @@ data class VodItem(
     val duration: Long,
     val sports: ArrayList<Sport>,
     val schools: ArrayList<School>,
-    val images: ArrayList<String>
+    val images: Images
 ) {
 
     fun getSchoolNames(apiNetworkClient: ApiNetworkClient): ArrayList<String> {

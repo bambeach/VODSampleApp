@@ -2,21 +2,23 @@ package com.bjc.vodsampleapp.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bjc.vodsampleapp.data.VodItem
 import com.bjc.vodsampleapp.databinding.CardVodItemBinding
 import com.bjc.vodsampleapp.network.ApiNetworkClient
 
-class CardAdapter : ListAdapter<VodItem, RecyclerView.ViewHolder>(VodDiffCallback()) {
+class CardAdapter : PagingDataAdapter<VodItem, RecyclerView.ViewHolder>(VodDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return VodViewHolder(CardVodItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val vodItem = getItem(position)
-        (holder as VodViewHolder).bind(vodItem)
+        if (vodItem != null) {
+            (holder as VodViewHolder).bind(vodItem)
+        }
     }
 
     class VodViewHolder(private val binding: CardVodItemBinding) : RecyclerView.ViewHolder(binding.root) {
