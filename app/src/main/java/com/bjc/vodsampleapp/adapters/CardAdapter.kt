@@ -46,5 +46,4 @@ private class VodDiffCallback : DiffUtil.ItemCallback<VodItemWithNames>() {
     override fun areContentsTheSame(oldItem: VodItemWithNames, newItem: VodItemWithNames): Boolean {
         return oldItem == newItem
     }
-
 }
