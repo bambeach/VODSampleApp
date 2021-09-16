@@ -1,6 +1,6 @@
 package com.bjc.vodsampleapp.data
 
-data class School(
+data class SportName(
     val id: Int,
-    val homeTeam: Boolean
+    val name: String
 ) { }

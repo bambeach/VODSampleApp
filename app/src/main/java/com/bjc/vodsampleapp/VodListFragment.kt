@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bjc.vodsampleapp.adapters.CardAdapter
+import com.bjc.vodsampleapp.api.Pac12DataClient
 import com.bjc.vodsampleapp.databinding.FragmentVodListBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

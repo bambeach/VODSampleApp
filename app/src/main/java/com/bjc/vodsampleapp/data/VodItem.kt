@@ -1,6 +1,6 @@
 package com.bjc.vodsampleapp.data
 
-import com.bjc.vodsampleapp.network.ApiNetworkClient
+import com.bjc.vodsampleapp.api.Pac12DataClient
 import java.util.concurrent.TimeUnit
 
 data class VodItem(
@@ -13,22 +13,29 @@ data class VodItem(
     val images: Images
 ) {
 
-    fun getSchoolNames(apiNetworkClient: ApiNetworkClient): ArrayList<String> {
-        var schoolNames = ArrayList<String>()
-        for (school in schools) {
-            var schoolName = apiNetworkClient.getSchoolById(school.id)
+    suspend fun getSchoolNames(client: Pac12DataClient): String {
+//        val schoolNames = ""
+//        for (school in schools) {
+//            val schoolName = schoolList[school.id]
+//        }
+        return if (schools.size > 1) {
+            val schoolIds = schools.joinToString(separator = ";", transform = {school -> school.id.toString() })
+            val schoolsResponse = client.getSchoolsByIds(schoolIds)
+            val schoolNames = schoolsResponse.schools
+            schoolNames.joinToString(separator = ", ", transform = {schoolName -> schoolName.name })
+        } else {
+            val schoolResponse = client.getSchoolById(schools[0].id)
+            schoolResponse.name
         }
-
-        return schoolNames
     }
 
-    fun getSportsNames(apiNetworkClient: ApiNetworkClient): ArrayList<String> {
-        var sportNames = ArrayList<String>()
+    suspend fun getSportsNames(client: Pac12DataClient): String {
+        val sportNames = ArrayList<String>()
         for (sport in sports) {
-            var sportName = apiNetworkClient.getSportById(sport.id)
+            sportNames.add(client.getSportById(sport.id).name)
         }
 
-        return sportNames
+        return sportNames.joinToString(separator = ", ")
     }
 
     fun formatDuration() = String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(duration), TimeUnit.MILLISECONDS.toSeconds(duration) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration)))

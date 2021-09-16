@@ -27,7 +27,7 @@ class ApiNetworkClient {
 
     fun getSchoolById(id: String) : String {
         val request = Request.Builder()
-            .url("http://api.pac-12.com/v3/schools/$id")
+            .url("https://api.pac-12.com/v3/schools/$id")
             .build()
 
         executeRequest(request)
@@ -44,7 +44,7 @@ class ApiNetworkClient {
 
     fun getSportById(id: String) : String {
         val request = Request.Builder()
-            .url("http://api.pac-12.com/v3/sports/$id")
+            .url("https://api.pac-12.com/v3/sports/$id")
             .build()
 
         executeRequest(request)

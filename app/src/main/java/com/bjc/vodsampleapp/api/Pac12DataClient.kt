@@ -1,11 +1,12 @@
 package com.bjc.vodsampleapp.api
 
-import com.bjc.vodsampleapp.data.VodListResponse
+import com.bjc.vodsampleapp.data.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface Pac12DataClient {
@@ -34,4 +35,25 @@ interface Pac12DataClient {
         @Query("page") page: Int,
         @Query("pagesize") pageSize: Int
     ): VodListResponse
+
+    @GET("schools/{id}")
+    suspend fun getSchoolById(
+        @Path("id") id: Int
+    ): SchoolResponse
+
+    @GET("schools/{ids}")
+    suspend fun getSchoolsByIds(
+        @Path("ids") id: String
+    ): SchoolGroupResponse
+
+    @GET("schools?all=true&pagesize=9999")
+    suspend fun getSchools(): SchoolGroupResponse
+
+    @GET("sports/{id}")
+    suspend fun getSportById(
+        @Path("id") id: Int
+    ): SportResponse
+
+    @GET("sports")
+    suspend fun getSports(): SportsResponse
 }
